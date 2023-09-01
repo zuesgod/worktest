@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -152,15 +152,65 @@ public class StreamLearn {
 
         System.out.println("============================collect()=================================");
 
-
         //collect() 方法用于将 Stream 中的元素收集到结果容器中，如 List、Set、Map 等。可以使用预定义的 Collectors 类提供的工厂方法来创建收集器，也可以自定义收集器。例如：
+        Stream<String> collectStream = Stream.of("apple","banana","cherry");
+        List<String> collect = collectStream.collect(Collectors.toList());
+        collect.forEach(System.out::println);
 
         System.out.println("==========================reduce()===================================");
         //reduce() 方法用于将 Stream 中的元素依次进行二元操作，得到一个最终的结果。它接受一个初始值和一个 BinaryOperator 函数作为参数。例如：
+        //相当于sql的count，sum()函数
+        Stream<Integer> reduceStream = Stream.of(1, 2, 3, 4, 5);
+        Optional<Integer> sum = reduceStream.reduce((a, b) -> a + b); // 对所有元素求和
+        System.out.println("sum.get() = " + sum.get());
 
         System.out.println("==============================summaryStatistics()===============================");
         //summaryStatistics() 方法可以从 Stream 中获取一些常用的统计信息，如元素个数、最小值、最大值、总和和平均值。例如：
-
+        //上面reduce的进阶版
+        IntStream summaryStatisticstream = IntStream.of(1, 2, 3, 4, 5);
+        IntSummaryStatistics stats = summaryStatisticstream.summaryStatistics();
+        System.out.println("Count: " + stats.getCount());
+        System.out.println("Min: " + stats.getMin());
+        System.out.println("Max: " + stats.getMax());
+        System.out.println("Sum: " + stats.getSum());
+        System.out.println("Average: " + stats.getAverage());
         System.out.println("=============================================================");
+    }
+
+    /**
+     * Stream的终端操作
+     * @author zues
+     * @date 2023/9/1 16:00
+     */
+    public void finalTest(){
+        System.out.println("==============================forEach 和 peek===============================");
+        //forEach： forEach是一个终端操作方法，它接受一个Consumer函数作为参数，对流中的每个元素执行该函数。
+        // 它没有返回值，因此无法将操作结果传递给后续操作。forEach会遍历整个流，对每个元素执行相同的操作。
+
+
+        System.out.println("==============================匹配操作（allMatch、anyMatch 和 noneMatch）===============================");
+        //在 Stream API 中，allMatch、anyMatch 和 noneMatch 是用于进行匹配操作的方法，它们可以用来检查流中的元素是否满足特定的条件。
+
+
+        System.out.println("==============================查找操作（findFirst 和 findAny）===============================");
+        //reduce和collect都是Stream API中用于聚合操作的方法，它们可以将流中的元素进行汇总、计算和收集。
+
+
+        System.out.println("==============================（reduce 和 collect）===============================");
+        //reduce和collect都是Stream API中用于聚合操作的方法，它们可以将流中的元素进行汇总、计算和收集。
+
+
+        System.out.println("==============================（reduce 和 collect）===============================");
+        //reduce和collect都是Stream API中用于聚合操作的方法，它们可以将流中的元素进行汇总、计算和收集。
+
+
+        System.out.println("==============================（reduce 和 collect）===============================");
+        //reduce和collect都是Stream API中用于聚合操作的方法，它们可以将流中的元素进行汇总、计算和收集。
+
+
+
+
+
+
     }
 }
